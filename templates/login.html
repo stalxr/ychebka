@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth">
+    <h1>Вход</h1>
+    <p class="muted">Введите логин и пароль из базы данных. Или зайдите как гость и просто смотрите товары.</p>
+
+    {% if error %}
+        <div class="alert">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" class="card auth__card">
+        {% csrf_token %}
+        <div class="field">
+            <label>{{ form.login.label }}</label>
+            {{ form.login }}
+        </div>
+        <div class="field">
+            <label>{{ form.password.label }}</label>
+            {{ form.password }}
+        </div>
+        <div class="auth__actions">
+            <button type="submit" class="btn">Войти</button>
+            <a href="/products/" class="btn btn--ghost">Продолжить как гость</a>
+        </div>
+    </form>
+
+    <div class="hint">
+        <div class="muted">Логин = поле <b>Login</b>, пароль = поле <b>Password</b> в таблице <b>Users</b>.</div>
+    </div>
+</div>
+{% endblock %}

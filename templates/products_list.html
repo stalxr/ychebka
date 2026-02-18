@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="pagehead">
+    <h1>Товары</h1>
+
+    {% if session_user.role == "Администратор" %}
+        <a class="btn" href="/products/new/">Добавить товар</a>
+    {% endif %}
+</div>
+
+{% if can_filter %}
+<form class="filters card" method="get" action="/products/">
+    <div class="filters__row">
+        <div class="field">
+            <label>Поиск</label>
+            <input type="text" name="q" value="{{ q }}" placeholder="Артикул, название, категория, производитель..." />
+        </div>
+        <div class="field">
+            <label>Категория</label>
+            <select name="category">
+                <option value="">Все</option>
+                {% for c in categories %}
+                    <option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label>Производитель</label>
+            <select name="manufacturer">
+                <option value="">Все</option>
+                {% for m in manufacturers %}
+                    <option value="{{ m }}" {% if m == manufacturer %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label>Поставщик</label>
+            <select name="supplier">
+                <option value="">Все</option>
+                {% for s in suppliers %}
+                    <option value="{{ s }}" {% if s == supplier %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label>Сортировка</label>
+            <select name="sort">
+                <option value="">Без сортировки</option>
+                <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>Цена ↑</option>
+                <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>Цена ↓</option>
+                <option value="name_asc" {% if sort == "name_asc" %}selected{% endif %}>Название ↑</option>
+                <option value="name_desc" {% if sort == "name_desc" %}selected{% endif %}>Название ↓</option>
+                <option value="count_asc" {% if sort == "count_asc" %}selected{% endif %}>Остаток ↑</option>
+                <option value="count_desc" {% if sort == "count_desc" %}selected{% endif %}>Остаток ↓</option>
+            </select>
+        </div>
+    </div>
+    <div class="filters__actions">
+        <button class="btn" type="submit">Применить</button>
+        <a class="btn btn--ghost" href="/products/">Сброс</a>
+    </div>
+</form>
+{% endif %}
+
+<div class="products">
+    {% for p in products %}
+        <div class="product-card">
+            <div class="product-card__img">
+                {% if p.image %}
+                    <img src="/media/{{ p.image }}" alt="{{ p.products_name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="img-fallback" style="display:none;">Фото</div>
+                {% else %}
+                    <div class="img-fallback">Фото</div>
+                {% endif %}
+            </div>
+
+            <div class="product-card__info">
+                <div class="product-card__top">
+                    <div class="product-card__cat">{{ p.category }}</div>
+                    <div class="product-card__name">{{ p.products_name }}</div>
+                </div>
+
+                <div class="product-card__meta">
+                    <div><span class="muted">Описание:</span> {{ p.discription|default:"-" }}</div>
+                    <div><span class="muted">Производитель:</span> {{ p.manufacturer }}</div>
+                    <div><span class="muted">Поставщик:</span> {{ p.supplier }}</div>
+                    <div><span class="muted">Цена:</span> {{ p.price }} ₽</div>
+                    <div><span class="muted">Ед. изм.:</span> {{ p.unit }}</div>
+                    <div><span class="muted">Количество на складе:</span> {{ p.count }}</div>
+                    <div><span class="muted">Артикул:</span> {{ p.article }}</div>
+                </div>
+
+                {% if session_user.role == "Администратор" %}
+                    <div class="product-card__actions">
+                        <a class="btn btn--sm" href="/products/{{ p.id }}/edit/">Редактировать</a>
+                        <a class="btn btn--sm btn--danger" href="/products/{{ p.id }}/delete/">Удалить</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="product-card__sale">
+                <div class="sale__title">Действующая скидка</div>
+                <div class="sale__value">{% if p.sale %}{{ p.sale }}{% else %}0{% endif %}%</div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty">Товаров нет.</div>
+    {% endfor %}
+</div>
+{% endblock %}

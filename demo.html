@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOO Shoes - Демонстрация</title>
+    <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar__inner">
+            <div class="brand">
+                <a class="brand__link" href="/products/">OOO Shoes</a>
+            </div>
+            <nav class="nav">
+                <a class="nav__link" href="/products/">Товары</a>
+                <a class="nav__link" href="/orders/">Заказы</a>
+            </nav>
+            <div class="authbox">
+                <div class="authbox__meta">
+                    <div class="authbox__name">Иванов Иван</div>
+                    <div class="authbox__role">Администратор</div>
+                </div>
+                <a class="btn btn--ghost" href="/logout/">Выйти</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="pagehead">
+            <h1>Каталог товаров</h1>
+            <a class="btn" href="/products/add/">+ Добавить товар</a>
+        </div>
+
+        <div class="filters">
+            <div class="filters__row">
+                <input type="text" placeholder="Поиск по названию..." class="field">
+                <select class="field">
+                    <option>Все категории</option>
+                    <option>Ботинки</option>
+                    <option>Кроссовки</option>
+                    <option>Туфли</option>
+                </select>
+                <select class="field">
+                    <option>Все производители</option>
+                    <option>Италия</option>
+                    <option>Китай</option>
+                    <option>Испания</option>
+                </select>
+                <select class="field">
+                    <option>Цена: по возрастанию</option>
+                    <option>Цена: по убыванию</option>
+                </select>
+                <button class="btn">Применить</button>
+            </div>
+        </div>
+
+        <div class="products">
+            <div class="product-card">
+                <div class="product-card__img">
+                    <div class="img-fallback">BOOT001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Ботинки</div>
+                    <div class="product-card__name">Классические ботинки</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: BOOT001</div>
+                        <div>Производитель: Италия</div>
+                        <div>Поставщик: ОбувьПром</div>
+                        <div>На складе: 45 пар</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Скидка</div>
+                    <div class="sale__value">20%</div>
+                    <div>₽4,799</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-card__img">
+                    <div class="img-fallback">SNEAK001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Кроссовки</div>
+                    <div class="product-card__name">Спортивные кроссовки</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: SNEAK001</div>
+                        <div>Производитель: Китай</div>
+                        <div>Поставщик: СпортМастер</div>
+                        <div>На складе: 120 пар</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Скидка</div>
+                    <div class="sale__value">15%</div>
+                    <div>₽3,399</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-card__img">
+                    <div class="img-fallback">HEEL001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Туфли</div>
+                    <div class="product-card__name">Женские туфли на каблуке</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: HEEL001</div>
+                        <div>Производитель: Испания</div>
+                        <div>Поставщик: Элегант</div>
+                        <div>На складе: 25 пар</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Цена</div>
+                    <div class="sale__value">₽8,999</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div>Данные берутся из SQL (MySQL) базы.</div>
+        </div>
+    </footer>
+</body>
+</html>

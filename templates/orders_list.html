@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="pagehead">
+    <h1>{% if is_client %}Мои заказы{% else %}Заказы{% endif %}</h1>
+    {% if can_manage %}
+        <a class="btn" href="/orders/new/">Добавить заказ</a>
+    {% endif %}
+</div>
+
+<div class="card table-card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Клиент</th>
+                <th>Артикул(ы)</th>
+                <th>Дата заказа</th>
+                <th>Дата доставки</th>
+                <th>ПВЗ ID</th>
+                <th>Код</th>
+                <th>Статус</th>
+                {% if can_manage %}
+                    <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in orders %}
+                <tr>
+                    <td>{{ o.id }}</td>
+                    <td>{{ o.client_name }}</td>
+                    <td class="mono">{{ o.article }}</td>
+                    <td>{{ o.order_date }}</td>
+                    <td>{{ o.delivery_date }}</td>
+                    <td>{{ o.adress_pvz_id }}</td>
+                    <td>{{ o.verefication_code }}</td>
+                    <td>{{ o.order_status }}</td>
+                    {% if can_manage %}
+                        <td class="actions">
+                            <a class="btn btn--sm" href="/orders/{{ o.id }}/edit/">Редактировать</a>
+                            <a class="btn btn--sm btn--danger" href="/orders/{{ o.id }}/delete/">Удалить</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr><td colspan="{% if can_manage %}9{% else %}8{% endif %}" class="empty">Заказов нет.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

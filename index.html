@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOO Shoes - Интернет-магазин обуви</title>
+    <link rel="stylesheet" href="static/css/app.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar__inner">
+            <div class="brand">
+                <a class="brand__link" href="#" onclick="showPage('products'); return false;">OOO Shoes</a>
+            </div>
+            <nav class="nav">
+                <a class="nav__link" href="#" onclick="showPage('products'); return false;">Товары</a>
+                <a class="nav__link" href="#" onclick="showPage('orders'); return false;">Заказы</a>
+            </nav>
+            <div class="authbox">
+                <div class="authbox__meta">
+                    <div class="authbox__name">Иванов Иван</div>
+                    <div class="authbox__role">Администратор</div>
+                </div>
+                <a class="btn btn--ghost" href="#" onclick="logout(); return false;">Выйти</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="products-page" class="page">
+            <div class="pagehead">
+                <h1>Каталог обуви</h1>
+                <a class="btn" href="#" onclick="showAddProductForm(); return false;">+ Добавить товар</a>
+            </div>
+
+            <div class="filters">
+                <div class="filters__row">
+                    <input type="text" id="search-input" placeholder="Поиск по названию, артикулу..." class="field" onkeyup="filterProducts()">
+                    <select id="category-filter" class="field" onchange="filterProducts()">
+                        <option value="">Все категории</option>
+                        <option value="Ботинки">Ботинки</option>
+                        <option value="Кроссовки">Кроссовки</option>
+                        <option value="Туфли">Туфли</option>
+                        <option value="Сапоги">Сапоги</option>
+                        <option value="Сандалии">Сандалии</option>
+                    </select>
+                    <select id="manufacturer-filter" class="field" onchange="filterProducts()">
+                        <option value="">Все производители</option>
+                        <option value="Италия">Италия</option>
+                        <option value="Китай">Китай</option>
+                        <option value="Испания">Испания</option>
+                        <option value="Германия">Германия</option>
+                        <option value="Турция">Турция</option>
+                    </select>
+                    <select id="sort-filter" class="field" onchange="filterProducts()">
+                        <option value="">Цена: по возрастанию</option>
+                        <option value="price_desc">Цена: по убыванию</option>
+                        <option value="name_asc">Название: А-Я</option>
+                        <option value="name_desc">Название: Я-А</option>
+                    </select>
+                    <button class="btn" onclick="filterProducts()">Применить</button>
+                </div>
+            </div>
+
+            <div id="products-container" class="products">
+            <div class="product-card">
+                <div class="product-card__img">
+                    <img src="media/1.jpg" alt="Классические мужские ботинки" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback" style="display: none;">BOOT001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Ботинки</div>
+                    <div class="product-card__name">Классические мужские ботинки</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: BOOT001</div>
+                        <div>Производитель: Италия</div>
+                        <div>Поставщик: ОбувьПром</div>
+                        <div>На складе: 45 пар</div>
+                        <div>Материал: Натуральная кожа</div>
+                        <div>Сезон: Осень-Зима</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Скидка</div>
+                    <div class="sale__value">20%</div>
+                    <div>₽4,799</div>
+                    <small style="text-decoration: line-through; color: var(--muted);">₽5,999</small>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-card__img">
+                    <img src="media/2.jpg" alt="Спортивные кроссовки Nike Air" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback" style="display: none;">SNEAK001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Кроссовки</div>
+                    <div class="product-card__name">Спортивные кроссовки Nike Air</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: SNEAK001</div>
+                        <div>Производитель: Китай</div>
+                        <div>Поставщик: СпортМастер</div>
+                        <div>На складе: 120 пар</div>
+                        <div>Материал: Текстиль, резина</div>
+                        <div>Сезон: Весна-Лето</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Скидка</div>
+                    <div class="sale__value">15%</div>
+                    <div>₽3,399</div>
+                    <small style="text-decoration: line-through; color: var(--muted);">₽3,999</small>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-card__img">
+                    <img src="media/3.jpg" alt="Женские туфли на каблуке" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback" style="display: none;">HEEL001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Туфли</div>
+                    <div class="product-card__name">Женские туфли на каблуке</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: HEEL001</div>
+                        <div>Производитель: Испания</div>
+                        <div>Поставщик: Элегант</div>
+                        <div>На складе: 25 пар</div>
+                        <div>Материал: Замша</div>
+                        <div>Сезон: Весна-Осень</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Цена</div>
+                    <div class="sale__value">₽8,999</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-card__img">
+                    <img src="media/4.jpg" alt="Женские зимние сапоги" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback" style="display: none;">BOOT002</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Сапоги</div>
+                    <div class="product-card__name">Женские зимние сапоги</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: BOOT002</div>
+                        <div>Производитель: Турция</div>
+                        <div>Поставщик: ЗимняяОбувь</div>
+                        <div>На складе: 30 пар</div>
+                        <div>Материал: Натуральный мех</div>
+                        <div>Сезон: Зима</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Скидка</div>
+                    <div class="sale__value">30%</div>
+                    <div>₽6,999</div>
+                    <small style="text-decoration: line-through; color: var(--muted);">₽9,999</small>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-card__img">
+                    <img src="media/5.jpg" alt="Летние сандалии" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="img-fallback" style="display: none;">SAND001</div>
+                </div>
+                <div class="product-card__info">
+                    <div class="product-card__cat">Сандалии</div>
+                    <div class="product-card__name">Летние сандалии</div>
+                    <div class="product-card__meta">
+                        <div>Артикул: SAND001</div>
+                        <div>Производитель: Германия</div>
+                        <div>Поставщик: ЛетнийКомфорт</div>
+                        <div>На складе: 60 пар</div>
+                        <div>Материал: Кожа</div>
+                        <div>Сезон: Лето</div>
+                    </div>
+                    <div class="product-card__actions">
+                        <button class="btn btn--sm">Редактировать</button>
+                        <button class="btn btn--danger btn--sm">Удалить</button>
+                    </div>
+                </div>
+                <div class="product-card__sale">
+                    <div class="sale__title">Цена</div>
+                    <div class="sale__value">₽2,499</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница заказов -->
+        <div id="orders-page" class="page" style="display: none;">
+            <div class="pagehead">
+                <h1>Заказы</h1>
+            </div>
+            <div class="orders-list">
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-number">Заказ #001</div>
+                            <div class="order-date">18.02.2024</div>
+                            <div class="order-status">В обработке</div>
+                        </div>
+                        <div class="order-total">₽4,799</div>
+                    </div>
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-name">Классические мужские ботинки</div>
+                            <div class="item-quantity">1 шт.</div>
+                            <div class="item-price">₽4,799</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-number">Заказ #002</div>
+                            <div class="order-date">17.02.2024</div>
+                            <div class="order-status">Отправлен</div>
+                        </div>
+                        <div class="order-total">₽6,798</div>
+                    </div>
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-name">Спортивные кроссовки Nike Air</div>
+                            <div class="item-quantity">2 шт.</div>
+                            <div class="item-price">₽3,399</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма добавления товара -->
+        <div id="add-product-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Добавить товар</h2>
+                    <button class="modal-close" onclick="closeAddProductForm()">&times;</button>
+                </div>
+                <form id="add-product-form" onsubmit="addProduct(event)">
+                    <div class="form-group">
+                        <label>Артикул:</label>
+                        <input type="text" name="article" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Название:</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Категория:</label>
+                        <select name="category" required>
+                            <option value="Ботинки">Ботинки</option>
+                            <option value="Кроссовки">Кроссовки</option>
+                            <option value="Туфли">Туфли</option>
+                            <option value="Сапоги">Сапоги</option>
+                            <option value="Сандалии">Сандалии</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Цена:</label>
+                        <input type="number" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Производитель:</label>
+                        <input type="text" name="manufacturer" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Поставщик:</label>
+                        <input type="text" name="supplier" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Количество на складе:</label>
+                        <input type="number" name="count" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание:</label>
+                        <textarea name="description" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Добавить</button>
+                        <button type="button" class="btn btn--ghost" onclick="closeAddProductForm()">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div>© 2024 OOO Shoes - Интернет-магазин обуви | Данные из MySQL базы данных</div>
+        </div>
+    </footer>
+
+    <script>
+        // Данные товаров
+        let products = [
+            {
+                id: 1,
+                article: 'BOOT001',
+                name: 'Классические мужские ботинки',
+                category: 'Ботинки',
+                manufacturer: 'Италия',
+                supplier: 'ОбувьПром',
+                count: 45,
+                price: 4799,
+                originalPrice: 5999,
+                discount: 20,
+                description: 'Натуральная кожа',
+                season: 'Осень-Зима',
+                image: 'media/1.jpg'
+            },
+            {
+                id: 2,
+                article: 'SNEAK001',
+                name: 'Спортивные кроссовки Nike Air',
+                category: 'Кроссовки',
+                manufacturer: 'Китай',
+                supplier: 'СпортМастер',
+                count: 120,
+                price: 3399,
+                originalPrice: 3999,
+                discount: 15,
+                description: 'Текстиль, резина',
+                season: 'Весна-Лето',
+                image: 'media/2.jpg'
+            },
+            {
+                id: 3,
+                article: 'HEEL001',
+                name: 'Женские туфли на каблуке',
+                category: 'Туфли',
+                manufacturer: 'Испания',
+                supplier: 'Элегант',
+                count: 25,
+                price: 8999,
+                originalPrice: 8999,
+                discount: 0,
+                description: 'Замша',
+                season: 'Весна-Осень',
+                image: 'media/3.jpg'
+            },
+            {
+                id: 4,
+                article: 'BOOT002',
+                name: 'Женские зимние сапоги',
+                category: 'Сапоги',
+                manufacturer: 'Турция',
+                supplier: 'ЗимняяОбувь',
+                count: 30,
+                price: 6999,
+                originalPrice: 9999,
+                discount: 30,
+                description: 'Натуральный мех',
+                season: 'Зима',
+                image: 'media/4.jpg'
+            },
+            {
+                id: 5,
+                article: 'SAND001',
+                name: 'Летние сандалии',
+                category: 'Сандалии',
+                manufacturer: 'Германия',
+                supplier: 'ЛетнийКомфорт',
+                count: 60,
+                price: 2499,
+                originalPrice: 2499,
+                discount: 0,
+                description: 'Кожа',
+                season: 'Лето',
+                image: 'media/5.jpg'
+            }
+        ];
+
+        let filteredProducts = [...products];
+
+        // Переключение страниц
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageName + '-page').style.display = 'block';
+        }
+
+        // Фильтрация товаров
+        function filterProducts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const category = document.getElementById('category-filter').value;
+            const manufacturer = document.getElementById('manufacturer-filter').value;
+            const sort = document.getElementById('sort-filter').value;
+
+            filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                    product.article.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || product.category === category;
+                const matchesManufacturer = !manufacturer || product.manufacturer === manufacturer;
+                
+                return matchesSearch && matchesCategory && matchesManufacturer;
+            });
+
+            // Сортировка
+            if (sort === 'price_desc') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            } else if (sort === 'name_asc') {
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sort === 'name_desc') {
+                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+            } else {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            }
+
+            renderProducts();
+        }
+
+        // Отрисовка товаров
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" data-id="${product.id}">
+                    <div class="product-card__img">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="img-fallback" style="display: none;">${product.article}</div>
+                    </div>
+                    <div class="product-card__info">
+                        <div class="product-card__cat">${product.category}</div>
+                        <div class="product-card__name">${product.name}</div>
+                        <div class="product-card__meta">
+                            <div>Артикул: ${product.article}</div>
+                            <div>Производитель: ${product.manufacturer}</div>
+                            <div>Поставщик: ${product.supplier}</div>
+                            <div>На складе: ${product.count} пар</div>
+                            <div>Материал: ${product.description}</div>
+                            <div>Сезон: ${product.season}</div>
+                        </div>
+                        <div class="product-card__actions">
+                            <button class="btn btn--sm" onclick="editProduct(${product.id})">Редактировать</button>
+                            <button class="btn btn--danger btn--sm" onclick="deleteProduct(${product.id})">Удалить</button>
+                        </div>
+                    </div>
+                    <div class="product-card__sale">
+                        <div class="sale__title">${product.discount > 0 ? 'Скидка' : 'Цена'}</div>
+                        <div class="sale__value">${product.discount > 0 ? product.discount + '%' : '₽' + product.price.toLocaleString()}</div>
+                        ${product.discount > 0 ? `
+                            <div>₽${product.price.toLocaleString()}</div>
+                            <small style="text-decoration: line-through; color: var(--muted);">₽${product.originalPrice.toLocaleString()}</small>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Добавление товара
+        function showAddProductForm() {
+            document.getElementById('add-product-modal').style.display = 'block';
+        }
+
+        function closeAddProductForm() {
+            document.getElementById('add-product-modal').style.display = 'none';
+            document.getElementById('add-product-form').reset();
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const newProduct = {
+                id: products.length + 1,
+                article: formData.get('article'),
+                name: formData.get('name'),
+                category: formData.get('category'),
+                manufacturer: formData.get('manufacturer'),
+                supplier: formData.get('supplier'),
+                count: parseInt(formData.get('count')),
+                price: parseInt(formData.get('price')),
+                originalPrice: parseInt(formData.get('price')),
+                discount: 0,
+                description: formData.get('description'),
+                season: 'Всесезон',
+                image: `media/${(products.length % 10) + 1}.jpg`
+            };
+            
+            products.push(newProduct);
+            filterProducts();
+            closeAddProductForm();
+            alert('Товар успешно добавлен!');
+        }
+
+        // Редактирование товара
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                alert(`Редактирование товара: ${product.name}\n(В демо-режите редактирование не доступно)`);
+            }
+        }
+
+        // Удаление товара
+        function deleteProduct(id) {
+            if (confirm('Вы уверены, что хотите удалить этот товар?')) {
+                products = products.filter(p => p.id !== id);
+                filterProducts();
+                alert('Товар удален!');
+            }
+        }
+
+        // Выход из системы
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти из системы?')) {
+                alert('Вы вышли из системы. В реальном приложении будет перенаправление на страницу входа.');
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+        });
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('add-product-modal');
+            if (event.target === modal) {
+                closeAddProductForm();
+            }
+        }
+    </script>
+
+    <style>
+        /* Дополнительные стили для модального окна */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .page {
+            width: 100%;
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .order-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .order-info {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .order-number {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .order-date {
+            color: var(--muted);
+        }
+
+        .order-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .order-status:nth-child(3) {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .order-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .order-items {
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+    </style>
+</body>
+</html>

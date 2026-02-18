@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OOO Shoes</title>
+    <link rel="stylesheet" href="/static/css/app.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar__inner">
+            <div class="brand">
+                <a class="brand__link" href="/products/">OOO Shoes</a>
+            </div>
+
+            <nav class="nav">
+                <a class="nav__link" href="/products/">Товары</a>
+                {% if session_user.role != "Гость" %}
+                    <a class="nav__link" href="/orders/">{% if session_user.role == "Авторизованный клиент" %}Мои заказы{% else %}Заказы{% endif %}</a>
+                {% endif %}
+            </nav>
+
+            <div class="authbox">
+                {% if session_user.role == "Гость" %}
+                    <a class="btn btn--ghost" href="/">Войти</a>
+                {% else %}
+                    <div class="authbox__meta">
+                        <div class="authbox__name">{{ session_user.full_name }}</div>
+                        <div class="authbox__role">{{ session_user.role }}</div>
+                    </div>
+                    <a class="btn btn--ghost" href="/logout/">Выйти</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div>Данные берутся из SQL (MySQL) базы.</div>
+        </div>
+    </footer>
+</body>
+</html>
